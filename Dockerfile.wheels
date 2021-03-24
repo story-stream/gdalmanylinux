@@ -185,6 +185,14 @@ ADD setup.py /src/gdal-2.4.4/swig/python/setup.py
 # sets the GDAL_DATA and PROJ_LIB variables on import to where they've
 # been copied to.
 ADD gdalinit.py /src/gdal-2.4.4/swig/python/osgeo/__init__.py
+ADD build-linux-wheels.sh /io/build-linux-wheels.sh
+ADD LICENSE.txt /io/LICENSE.txt
+ADD README.md /io/README.md
+ADD setup.py /io/build-linux-wheels.sh
+ADD requirements.txt /io/requirements.txt
+
+RUN chmod +x /io/build-linux-wheels.sh
 
 WORKDIR /io
+
 CMD ["/io/build-linux-wheels.sh"]

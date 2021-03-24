@@ -7,13 +7,12 @@
 # Howard Butler hobu.inc@gmail.com
 
 
-gdal_version = '2.4.4'
-
 import sys
 import shutil
 import os
 
 from glob import glob
+
 
 # ---------------------------------------------------------------------------
 # Switches
@@ -205,6 +204,10 @@ class gdal_ext(build_ext):
         self.include_dirs.append(os.path.join(self.gdaldir,'include'))
 
 
+def get_version():
+    return os.environ['PACKAGE_VERSION']
+
+
 extra_link_args = []
 extra_compile_args = []
 
@@ -273,8 +276,8 @@ packages = ["osgeo",]
 
 readme = str(open('README.rst','rb').read())
 
-name = 'GDAL'
-version = gdal_version
+name = 'storystream-gdal'
+version = get_version()
 author = "Frank Warmerdam"
 author_email = "warmerdam@pobox.com"
 maintainer = "Howard Butler"
@@ -312,7 +315,7 @@ copy_data_tree('/usr/local/share/proj', 'osgeo/proj_data')
 
 if HAVE_SETUPTOOLS:
     setup( name = name,
-           version = gdal_version,
+           version = version,
            author = author,
            author_email = author_email,
            maintainer = maintainer,
@@ -334,7 +337,7 @@ if HAVE_SETUPTOOLS:
            **extra )
 else:
     setup( name = name,
-           version = gdal_version,
+           version = version,
            author = author,
            author_email = author_email,
            maintainer = maintainer,

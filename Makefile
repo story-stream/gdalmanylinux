@@ -2,6 +2,8 @@
 
 SHELL = /bin/bash
 
-wheels: Dockerfile.wheels build-linux-wheels.sh
-	docker build -f Dockerfile.wheels -t gdal-wheelbuilder .
-	docker run -v `pwd`:/io gdal-wheelbuilder
+docker: Dockerfile.wheels build-linux-wheels.sh
+	docker build -f Dockerfile.wheels -t storystream/gdal-wheelbuilder .
+
+wheels: docker
+	docker run -e PACKAGE_VERSION=${PACKAGE_VERSION} -v `pwd`:/io storystream/gdal-wheelbuilder
