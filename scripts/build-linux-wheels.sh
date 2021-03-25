@@ -19,5 +19,5 @@ popd
 
 # Bundle GEOS into the wheels
 for whl in ${UNREPAIRED_WHEELS}/*.whl; do
-    auditwheel repair ${whl} -w dist || true
+    auditwheel repair ${whl} -w wheels/dist || true
 done
