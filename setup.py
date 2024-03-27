@@ -23,22 +23,22 @@ from setuptools import Extension
 # but setuptools will be confused if it is made of several words like 'ccache g++'
 # and it will try to use only the first word.
 # See https://lists.osgeo.org/pipermail/gdal-dev/2016-July/044686.html
-# Note: in general when doing 'make', CXX will not be defined, unless it is defined as
+# Note: in general when doing "make", CXX will not be defined, unless it is defined as
 # an environment variable, but in that case it is the value of GDALmake.opt that
-# will be set, not the one from the environment that started 'make' !
+# will be set, not the one from the environment that started "make" !
 # If no CXX environment variable is defined, then the value of the CXX variable
 # in GDALmake.opt will not be set as an environment variable
 if 'CXX' in os.environ and os.environ['CXX'].strip().find(' ') >= 0:
     if os.environ['CXX'].strip().startswith('ccache ') and os.environ['CXX'].strip()[len('ccache '):].find(' ') < 0:
         os.environ['CXX'] = os.environ['CXX'].strip()[len('ccache '):]
     else:
-        print('WARNING: 'CXX=%s' was defined in the environment and contains more than one word. Unsetting it since that is incompatible of setuptools' % os.environ['CXX'])
+        print('WARNING: "CXX=%s" was defined in the environment and contains more than one word. Unsetting it since that is incompatible of setuptools' % os.environ['CXX'])
         del os.environ['CXX']
 if 'CC' in os.environ and os.environ['CC'].strip().find(' ') >= 0:
     if os.environ['CC'].strip().startswith('ccache ') and os.environ['CC'].strip()[len('ccache '):].find(' ') < 0:
         os.environ['CC'] = os.environ['CC'].strip()[len('ccache '):]
     else:
-        print('WARNING: 'CC=%s' was defined in the environment and contains more than one word. Unsetting it since that is incompatible of setuptools' % os.environ['CC'])
+        print('WARNING: "CC=%s" was defined in the environment and contains more than one word. Unsetting it since that is incompatible of setuptools' % os.environ['CC'])
         del os.environ['CC']
 
 # ---------------------------------------------------------------------------
@@ -80,12 +80,12 @@ try:
     # check version
     numpy_major = numpy.__version__.split('.')[0]
     if int(numpy_major) < 1:
-        print('numpy version must be > 1.0.0')
+        print("numpy version must be > 1.0.0")
         HAVE_NUMPY = False
     else:
         #  print ('numpy include', get_numpy_include())
         if get_numpy_include() == '.':
-            print('WARNING: numpy headers were not found!  Array support will not be enabled')
+            print("WARNING: numpy headers were not found!  Array support will not be enabled")
             HAVE_NUMPY = False
 except ImportError:
     print('WARNING: numpy not available!  Array support will not be enabled')
@@ -97,7 +97,7 @@ class gdal_config_error(Exception):
 
 def fetch_config(option, gdal_config='gdal-config'):
 
-    command = gdal_config + ' --%s' % option
+    command = gdal_config + " --%s" % option
 
     import subprocess
     command, args = command.split()[0], command.split()[1]
@@ -116,11 +116,11 @@ def fetch_config(option, gdal_config='gdal-config'):
 def supports_cxx11(compiler, compiler_flag=None):
     ret = False
     with open('gdal_python_cxx11_test.cpp', 'wt') as f:
-        f.write('''
+        f.write("""
 #if __cplusplus < 201103L
-#error 'C++11 required'
+#error "C++11 required"
 #endif
-int main () { return 0; }''')
+int main () { return 0; }""")
         f.close()
         extra_postargs = None
         if compiler_flag:
@@ -167,7 +167,7 @@ class gdal_ext(build_ext):
     user_options = build_ext.user_options[:]
     user_options.extend([
         ('gdal-config=', None,
-         'The name of the gdal-config binary and/or a full path to it'),
+         "The name of the gdal-config binary and/or a full path to it"),
     ])
 
     def initialize_options(self):
@@ -326,16 +326,16 @@ packages = find_packages(utils_package_root)
 packages = ['osgeo'] + packages
 package_dir = {'osgeo': 'osgeo', '': utils_package_root}
 
-readme = open('README.rst', encoding='utf-8').read()
+readme = open('README.rst', encoding="utf-8").read()
 
 name = 'storystream-gdal'
-author = 'Frank Warmerdam'
-author_email = 'warmerdam@pobox.com'
-maintainer = 'Howard Butler'
-maintainer_email = 'hobu.inc@gmail.com'
-description = 'GDAL: Geospatial Data Abstraction Library'
-license_type = 'MIT'
-url = 'http://www.gdal.org'
+author = "Frank Warmerdam"
+author_email = "warmerdam@pobox.com"
+maintainer = "Howard Butler"
+maintainer_email = "hobu.inc@gmail.com"
+description = "GDAL: Geospatial Data Abstraction Library"
+license_type = "MIT"
+url = "http://www.gdal.org"
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -353,7 +353,7 @@ classifiers = [
 
 
 if BUILD_FOR_CHEESESHOP:
-    data_files = [('osgeo/data/gdal', glob(os.path.join('../../data', '*')))]
+    data_files = [("osgeo/data/gdal", glob(os.path.join("../../data", "*")))]
 else:
     data_files = None
 
