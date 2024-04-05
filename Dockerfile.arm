@@ -6,7 +6,7 @@
 # Note well: a very limited set of format drivers are included in these
 # wheels. See the GDAL configuration below for details.
 
-FROM quay.io/pypa/manylinux2014_aarch64
+FROM quay.io/pypa/manylinux2014_aarch64@sha256:c4fdb728c5b79b223b202269a8ae09282aec28d96d7da26d699cd9de0537a590
 
 RUN yum update -y && yum install -y curl libcurl-devel json-c-devel zlib-devel libtiff-devel postgresql-devel openjpeg-devel
 

@@ -15,7 +15,7 @@ wheel:
 	docker run -v `pwd`:/io storystream/gdal-wheelbuilder:gdal-3.5.1-arm64
 
 upload:
-	aws s3 cp wheels s3://storystream-gdal/wheels --recursive
+	aws s3 cp wheels s3://storystream-gdal/wheels/gdal --recursive
 
 download:
 	aws s3 cp s3://storystream-gdal/wheels dist --recursive

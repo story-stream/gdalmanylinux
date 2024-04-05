@@ -328,7 +328,7 @@ package_dir = {'osgeo': 'osgeo', '': utils_package_root}
 
 readme = open('README.rst', encoding="utf-8").read()
 
-name = 'storystream-gdal'
+name = 'gdal'
 author = "Frank Warmerdam"
 author_email = "warmerdam@pobox.com"
 maintainer = "Howard Butler"
