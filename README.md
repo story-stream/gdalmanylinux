@@ -10,9 +10,13 @@ The template was directly derived from the [rasterio](https://github.com/mapbox/
 
 The building of the wheels is done via the docker container provided by the Python Packaging Authority as described [here](https://github.com/pypa/manylinux).
 
-To build, clone this repo, navigate to its root and run `make wheels`.  The container may take a while to build on first go, but once complete you should have a subdirectory called `wheels` filled with wheels containing the bindings.  
+To build, clone this repo, navigate to its root and run `make`.  The containers may take a while to build on first go, but once complete you should have a subdirectory called `wheels` filled with wheels containing the bindings.
 
-The resulting wheels have the gdal and proj data directories packaged up inside of them, but you can set the appropriate environment variables to use your own data directories. 
+The resulting wheels have the gdal and proj data directories packaged up inside of them, but you can set the appropriate environment variables to use your own data directories.
+
+## Publishing the Wheels
+
+Double check that the files in your `wheels` directory look and work correctly. Run `make upload` to publish the newly built wheels on S3 and rerun python-packages to publish the changes as a private package called `gdal` on CodeArtifact.
 
 ## Using the Wheels
 

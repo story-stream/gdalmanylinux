@@ -6,9 +6,9 @@
 # Note well: a very limited set of format drivers are included in these
 # wheels. See the GDAL configuration below for details.
 
-FROM quay.io/pypa/manylinux2014_x86_64@sha256:84497f1232480d78d96ada4cf4bfc11d8787cd7766765d34421eb56c9faff9c6
+FROM quay.io/pypa/manylinux2014_aarch64@sha256:c4fdb728c5b79b223b202269a8ae09282aec28d96d7da26d699cd9de0537a590
 
-RUN yum update -y && yum install -y curl libcurl-devel json-c-devel zlib-devel libtiff-devel postgresql-devel
+RUN yum update -y && yum install -y curl libcurl-devel json-c-devel zlib-devel libtiff-devel postgresql-devel openjpeg-devel
 
 # Install openssl
 RUN mkdir -p /src \
@@ -40,7 +40,7 @@ RUN mkdir -p /src \
     && curl -f -L -O http://download.osgeo.org/gdal/jasper-1.900.1.uuid.tar.gz \
     && tar xzf jasper-1.900.1.uuid.tar.gz \
     && cd /src/jasper-1.900.1.uuid \
-    && ./configure --disable-debug --enable-shared \
+    && ./configure --build=aarch64-unknown-linux-gnu --disable-debug --enable-shared \
     && make -j 4 \
     && make install \
     && rm -rf /src
@@ -56,19 +56,6 @@ RUN mkdir -p /src \
     && cmake .. \
     && cmake --build . \
     && cmake --install . \
-    && rm -rf /src
-
-# openjpeg
-RUN mkdir -p /src \
-    && cd /src \
-    && curl -f -L -O https://github.com/uclouvain/openjpeg/archive/v2.4.0.tar.gz \
-    && tar xzf v2.4.0.tar.gz \
-    && cd /src/openjpeg-2.4.0 \
-    && mkdir -p build \
-    && cd build \
-    && cmake .. -DBUILD_THIRDPARTY:BOOL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local \
-    && make -j 4 install \
-    && make clean \
     && rm -rf /src
 
 # hdf5
